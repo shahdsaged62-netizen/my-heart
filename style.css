@@ -1,0 +1,287 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at 50% 45%, #650027 0%, #270013 45%, #080008 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    color: white;
+    perspective: 1000px;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(#ff8ab5 1px, transparent 1px);
+    background-size: 70px 70px, 110px 110px;
+    background-position: 0 0, 35px 45px;
+    opacity: .35;
+    animation: stars 15s linear infinite;
+}
+
+@keyframes stars {
+    from { transform: translateY(0); }
+    to { transform: translateY(-70px); }
+}
+
+.container {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 100px;
+    color: #ffd5e5;
+    text-shadow: 0 0 20px #ff1764;
+    letter-spacing: 2px;
+}
+
+.heart {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #ff9ab8, #ff174f 40%, #8b002c);
+    position: relative;
+    transform: rotate(-45deg);
+    margin: auto;
+    animation: beat 1.2s ease-in-out infinite;
+    box-shadow:
+        0 0 20px #ff174f,
+        0 0 50px #ff174f,
+        0 0 100px #ff1764,
+        inset -12px -12px 25px #750020,
+        inset 8px 8px 20px #ffc0d3;
+    border-radius: 12px;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #ffb2ca, #ff174f 55%, #a00036);
+    position: absolute;
+    border-radius: 50%;
+    box-shadow:
+        inset -10px -10px 20px #85002a,
+        inset 8px 8px 18px #ffc0d3;
+}
+
+.heart::before {
+    top: -60px;
+    left: 0;
+}
+
+.heart::after {
+    left: 60px;
+    top: 0;
+}
+
+.heart-text {
+    position: absolute;
+    z-index: 5;
+    transform: rotate(45deg);
+    width: 180px;
+    left: -30px;
+    top: 45px;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 12px white, 0 0 25px #ff0055;
+    transition: opacity .4s;
+}
+
+@keyframes beat {
+    0%, 100% {
+        transform: rotate(-45deg) scale(1);
+    }
+    50% {
+        transform: rotate(-45deg) scale(1.17);
+    }
+}
+
+h2 {
+    margin-top: 115px;
+    font-size: 23px;
+    color: #ffc2d8;
+    text-shadow: 0 0 15px #ff1764;
+}
+
+p {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #ffe1ec;
+}
+
+.floating-heart {
+    position: absolute;
+    bottom: -30px;
+    animation: float 6s linear forwards;
+    filter: drop-shadow(0 0 10px #ff1764);
+    z-index: 1;
+}
+
+@keyframes float {
+    to {
+        transform: translateY(-110vh) rotate(360deg) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* 3D Heart Movement */
+
+.heart {
+    cursor: pointer;
+    animation: floating3D 3s ease-in-out infinite;
+    transition: filter .4s;
+}
+
+.heart:hover {
+    filter: brightness(1.4);
+}
+
+@keyframes floating3D {
+    0%, 100% {
+        transform: rotate(-45deg) translateY(0) scale(1);
+    }
+    50% {
+        transform: rotate(-45deg) translateY(-18px) scale(1.12);
+    }
+}
+
+/* Message Window */
+
+.message-box {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 0, 10, .85);
+    backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    transition: .6s;
+    padding: 20px;
+}
+
+.message-box.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.message-content {
+    width: 100%;
+    max-width: 400px;
+    padding: 35px 25px;
+    text-align: center;
+    background: linear-gradient(145deg, #650027, #250014);
+    border: 1px solid #ff6a9d;
+    border-radius: 25px;
+    box-shadow: 0 0 40px #ff1764,
+                inset 0 0 25px rgba(255, 100, 160, .2);
+    transform: perspective(1000px) rotateX(15deg) scale(.7);
+    transition: .6s;
+}
+
+.message-box.show .message-content {
+    transform: perspective(1000px) rotateX(0) scale(1);
+}
+
+.big-heart {
+    font-size: 55px;
+    animation: beat 1s infinite;
+    margin-bottom: 15px;
+}
+
+.message-content h2 {
+    margin: 10px 0 20px;
+    color: #ffb6d0;
+}
+
+.message-content p {
+    line-height: 1.9;
+    font-size: 17px;
+    color: white;
+}
+
+.message-content button {
+    margin-top: 25px;
+    padding: 13px 30px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(90deg, #ff174f, #ff70a0);
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: 0 0 20px #ff1764;
+}
+.heart {
+    background: linear-gradient(
+        145deg,
+        #ff526b 0%,
+        #d00035 35%,
+        #8b001f 70%,
+        #ff1744 100%
+    );
+    box-shadow:
+        inset -12px -12px 22px rgba(70, 0, 15, 0.7),
+        inset 8px 8px 18px rgba(255, 190, 200, 0.55),
+        0 0 25px rgba(255, 0, 55, 0.7),
+        0 0 55px rgba(255, 0, 55, 0.4);
+    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.4));
+}
+
+.heart::before,
+.heart::after {
+    background: inherit;
+    box-shadow: inherit;
+}
+
+.heart-text {
+    color: white;
+    text-shadow:
+        0 2px 5px #650018,
+        0 0 12px rgba(255,255,255,0.8);
+}    width: 110px;
+    height: 110px;
+    background: linear-gradient(145deg, #ff3858, #a00025 75%);
+    transform: rotate(-45deg);
+    border-radius: 12px 12px 8px 12px;
+    box-shadow:
+        inset 12px 12px 20px rgba(255,255,255,.35),
+        inset -12px -12px 22px rgba(50,0,10,.5),
+        0 15px 30px rgba(120,0,25,.5);
+}
+
+.heart::before,
+.heart::after {
+    background: inherit;
+    border-radius: 50%;
+    box-shadow: inherit;
+}
+
+.heart::before {
+    top: -55px;
+    left: 0;
+}
+
+.heart::after {
+    left: 55px;
+    top: 0;
+}
